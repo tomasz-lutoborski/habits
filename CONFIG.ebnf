@@ -1,0 +1,22 @@
+(* A configuration file consists of one or more habit configurations. *)
+configuration = { habit_configuration } ;
+
+(* A habit configuration specifies details of a single habit. *)
+habit_configuration = identifier , ":" , { "\n" } , { field, "\n" } ;
+
+(* Field definitions *)
+field = "goal:" , integer
+      | "unit:" , string
+      | "type:" , ("counter" | "done" | "time" | "abstain")
+      | "frequency:" , ("daily" | "weekly" | "monthly" | "yearly")
+      | "start:" , date
+      | "end:" , date ;
+
+(* Auxiliary definitions *)
+identifier = letter , { letter | digit | "-" } ;
+integer = digit , { digit } ;
+string = '"' , { letter - '"' } , '"' ;
+date = digit , digit , digit , digit , "-" , digit , digit , "-" , digit , digit ;
+
+letter = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" ;
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;

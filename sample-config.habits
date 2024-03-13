@@ -1,0 +1,17 @@
+running:
+  goal: 10
+  unit: km
+  type: counter
+  frequency: daily
+  start: 2020-01-01
+  end: 2020-12-31
+
+
+sleep:
+    goal: 8
+ unit: hours 
+  type: counter
+  frequency: daily
+  start: 2020-01-01
+  end: 2020-12-31
+
