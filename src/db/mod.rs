@@ -2,9 +2,7 @@ use rusqlite::{params, Connection, Result};
 
 use crate::types::{Date, Frequency, Habit, HabitType};
 
-pub fn init_db() -> Result<()> {
-    let conn = Connection::open("habits.db")?;
-
+pub fn init_db(conn: &Connection) -> Result<()> {
     conn.execute(
         "CREATE TABLE IF NOT EXISTS habits (
             id INTEGER PRIMARY KEY,
@@ -15,6 +13,18 @@ pub fn init_db() -> Result<()> {
             frequency TEXT NOT NULL,
             start_date TEXT,
             end_date TEXT
+        )",
+        [],
+    )?;
+
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS habit_logs (
+            id INTEGER PRIMARY KEY,
+            habit_id INTEGER,
+            log_date TEXT NOT NULL,
+            progress INTEGER,
+            note TEXT,
+            FOREIGN KEY (habit_id) REFERENCES habits (id)
         )",
         [],
     )?;
@@ -40,10 +50,11 @@ pub fn insert_habit(conn: &Connection, habit: &Habit) -> Result<()> {
 
 pub fn test_db() -> Result<()> {
     // Initialize the database and create the table if it doesn't exist
-    init_db()?;
 
     // Open a connection to the database
     let conn = Connection::open("habits.db")?;
+
+    init_db(&conn)?;
 
     // Example: Insert a habit after parsing
     // Assuming you have a parsed habit to insert

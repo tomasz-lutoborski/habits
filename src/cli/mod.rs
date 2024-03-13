@@ -36,6 +36,4 @@ pub fn run_cli() {
         }
         None => {}
     }
-
-    // Continued program logic goes here...
 }
